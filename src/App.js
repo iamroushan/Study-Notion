@@ -1,24 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main class="flex justify-center gap-4 flex-col min-h-screen">
+      <h1 class="text-3xl text-center font-bold underline">React & Tailwind CSS Starter pack</h1>
+      <p class= "text-center text-xl">This is a Starter pack for React and Tailwind CSS projects.</p>
+      <img src='https://bit.ly/3wsmzTy' alt='meme' class="mx-auto"/>
+    </main>
   );
 }
 
