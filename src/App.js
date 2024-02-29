@@ -1,12 +1,14 @@
-import './App.css';
+import "./App.css";
+import { Route,Routes } from "react-router-dom";
+import Home from "./pages/Home"
 
 function App() {
   return (
-    <main class="flex justify-center gap-4 flex-col min-h-screen">
-      <h1 class="text-3xl text-center font-bold underline">React & Tailwind CSS Starter pack</h1>
-      <p class= "text-center text-xl">This is a Starter pack for React and Tailwind CSS projects.</p>
-      <img src='https://bit.ly/3wsmzTy' alt='meme' class="mx-auto"/>
-    </main>
+    <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
+        <Routes>
+          <Route  path="/" element={<Home />}/>
+        </Routes>
+    </div>
   );
 }
 
