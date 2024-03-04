@@ -10,6 +10,6 @@ export const endpoints = {
     SENDOTP_API: BASE_URL + "/auth/sendOTP",
     SIGNUP_API: BASE_URL + "/auth/signUp",
     LOGIN_API: BASE_URL + "/auth/login",
-    RESETPASSTOKEN_API: BASE_URL + "/auth/reset-password-token",
-    RESETPASSWORD_API: BASE_URL + "/auth/reset-password",
+    RESETPASSTOKEN_API: BASE_URL + "/auth/resetPasswordToken",
+    RESETPASSWORD_API: BASE_URL + "/auth/resetPassword",
 }

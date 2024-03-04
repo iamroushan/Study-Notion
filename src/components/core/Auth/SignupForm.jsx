@@ -7,14 +7,14 @@ import { useNavigate } from "react-router-dom"
 import { sendOtp } from "../../../services/operations/authAPI"
 import { setSignupData } from "../../../slices/authSlice"
 import { ACCOUNT_TYPE } from "../../../utils/constant"
-//import Tab from "../../common/Tab"
+import Tab from "../../common/Tab"
 
 function SignupForm() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   // student or instructor
-  const [accountType, setAccountType] = useState(ACCOUNT_TYPE.STUDENT);
+  const [accountType, setAccountType] = useState(ACCOUNT_TYPE.STUDENT)
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -27,7 +27,7 @@ function SignupForm() {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
-  const { firstName, lastName, email, password, confirmPassword } = formData;
+  const { firstName, lastName, email, password, confirmPassword } = formData
 
   // Handle input fields, when some value changes
   const handleOnChange = (e) => {
@@ -39,7 +39,7 @@ function SignupForm() {
 
   // Handle Form Submission
   const handleOnSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (password !== confirmPassword) {
       toast.error("Passwords Do Not Match")
@@ -49,7 +49,6 @@ function SignupForm() {
       ...formData,
       accountType,
     }
-    console.log("the signup data is  : " , signupData );
 
     // Setting signup data to state
     // To be used after otp verification
@@ -58,14 +57,14 @@ function SignupForm() {
     dispatch(sendOtp(formData.email, navigate))
 
     // Reset
-    // setFormData({
-    //   firstName: "",
-    //   lastName: "",
-    //   email: "",
-    //   password: "",
-    //   confirmPassword: "",
-    // })
-    // setAccountType(ACCOUNT_TYPE.STUDENT)
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    })
+    setAccountType(ACCOUNT_TYPE.STUDENT)
   }
 
   // data to pass to Tab component
@@ -85,7 +84,7 @@ function SignupForm() {
   return (
     <div>
       {/* Tab */}
-      {/* <Tab tabData={tabData} field={accountType} setField={setAccountType} /> */}
+      <Tab tabData={tabData} field={accountType} setField={setAccountType} />
       {/* Form */}
       <form onSubmit={handleOnSubmit} className="flex w-full flex-col gap-y-4">
         <div className="flex gap-x-4">
