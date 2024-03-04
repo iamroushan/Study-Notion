@@ -14,11 +14,11 @@ const authSLice = createSlice({
         setSignupData(state, value) {
             state.signupData = value.payload;
         },
-          setLoading(state, value) {
+        setLoading(state, value) {
             state.loading = value.payload;
         },
     },
 })
 
-export const {setToken} = authSLice.actions
+export const {setToken, setSignupData, setLoading} = authSLice.actions
 export default authSLice.reducer

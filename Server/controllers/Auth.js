@@ -13,6 +13,7 @@ exports.sendOTP= async(req,res)=>{
     try {
         // fetch email from request body
         const {email}= req.body;
+        console.log('reached here');
     
         // check if user already exist
         const checkUserPresent= await User.findOne({email})
