@@ -5,8 +5,8 @@ import axios from "axios"
 export const apiConnector = async (method, url, bodyData, headers, params) => {
     console.log(method, url, bodyData);
     const response =  await axios({
-        method: method,
-        url: url,
+        method: `${method}`,
+        url: `${url}`,
         data: bodyData,
         headers: headers,
         params: params,
