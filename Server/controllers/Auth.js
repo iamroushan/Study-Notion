@@ -247,7 +247,7 @@ exports.changePassword= async(req,res)=>{
         const userDetails = await User.findById(req.user.id);
     
         // get oldPassword, newPassword, confirmNewPassword
-        const {oldPassword, newPassword, confirmNewPassword} = req.body
+        const {oldPassword, newPassword} = req.body
     
         // validation of old password
         const isPasswordMatch = await bcrypt.compare(
@@ -270,12 +270,12 @@ exports.changePassword= async(req,res)=>{
         }
     
         // Match new password and confirm new password
-        if(newPassword !== confirmNewPassword){
-            return res.status(400).json({
-                success: false,
-                message: "The password and confirm new pasword does not match"
-            })
-        }
+        // if(newPassword !== confirmNewPassword){
+        //     return res.status(400).json({
+        //         success: false,
+        //         message: "The password and confirm new pasword does not match"
+        //     })
+        // }
     
         // update pwd in db
         const encryptedPassword = await bcrypt.hash(newPassword, 10)
@@ -284,16 +284,16 @@ exports.changePassword= async(req,res)=>{
             {password: encryptedPassword},
             {new: true}
         )
-    
+            console.log("user detail",updatedUserDetails)
         // send notification mail - password updated
         try {
             const emailResponse = await mailSender(
                 updatedUserDetails.email,
                 "Study Notion - Password Updated",
-                passwordUpated(
-                    updatedUserDetails.email,
-                    `Password updated successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`
-                )
+                {
+                    email : updatedUserDetails.email,
+                    message : `Password updated successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`
+                }
             )
             console.log("Email Sent Successfully: ",emailResponse.response);
         } 

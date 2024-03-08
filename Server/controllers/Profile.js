@@ -1,6 +1,7 @@
 const Profile = require("../models/Profile")
 const User = require("../models/User")
-const {uploadImageToCloudinary} = require("../utils/imageUploader")
+const {uploadImageToCloudinary} = require("../utils/imageUploader");
+require('dotenv').config();
 
 // updating a profile
 exports.updateProfile = async (req,res)=>{
@@ -9,7 +10,7 @@ exports.updateProfile = async (req,res)=>{
         const {dateOfBirth="", about="", contactNumber="", gender="", firstName, lastName} = req.body
 
         // get userId
-        const id = req.user.id
+        const id = req.user.id;
 
         // validation
         if(!contactNumber || !gender){
@@ -29,13 +30,17 @@ exports.updateProfile = async (req,res)=>{
         profileDetails.about = about
         profileDetails.contactNumber = contactNumber
         profileDetails.gender = gender
-        await profileDetails.save()
+        await profileDetails.save();
+        const temp = await User.findById(id).populate('additionalDetails').exec();
+        // let copyobject = Object.assign({} , profileDetails);
+        // copyobject.firstName = firstName;
+        // copyobject.lastName = lastName;
 
         // return response
         return res.status(200).json({
             success: true,
             message: "Profile details updated successfully",
-            profileDetails
+            temp
         })
     } catch (error) {
         return res.status(500).json({
@@ -52,6 +57,7 @@ exports.deleteAccount = async (req,res)=>{
         // get id
         const id = req.user.id
 
+        console.log("here");
         // validation
         const userDetails = await User.findById(id) 
         if(!userDetails){
@@ -60,7 +66,6 @@ exports.deleteAccount = async (req,res)=>{
                 message: "User not found"
             })
         }
-
         // profile delete
         await Profile.findByIdAndDelete({_id: userDetails.additionalDetails})
         // TODO: unenroll user from all enrolled courses
@@ -108,7 +113,10 @@ exports.getAllUserDetails = async (req,res)=>{
 //updateDisplayPicture
 exports.updateDisplayPicture = async (req, res) => {
     try{
-        const Picture = req.files.Picture;
+        console.log("the input request is : " , req.body);
+        console.log("the input request is : " , req.files);
+        console.log("the input request is : " , req.files.displayPicture);
+        const Picture = req.files.displayPicture;
         const userId = req.user.id;
         const image = await uploadImageToCloudinary(
         	Picture,
@@ -116,47 +124,18 @@ exports.updateDisplayPicture = async (req, res) => {
             1000,
             1000
         );
-
-        const updatedProfile = await User.findByIdAndUpdate({_id:userId},{image:image.secure_url},{ new: true });
+        console.log('image is', image);
+        const updatedProfile = await User.findByIdAndUpdate(
+            userId,
+            {image:image.secure_url},
+            { new: true });
 
         res.status(200).json({
                 success: true,
-                message: "Image updated successfully",
+                message: `Image updated successfully`,
                 data: updatedProfile,
         });
     }
-	// try {
-
-	// 	const id = req.user.id;
-	//     const user = await User.findById({_id:id});
-	//     if (!user) {
-	// 	return res.status(404).json({
-    //         success: false,
-    //         message: "User not found",
-    //     });
-	// }
-	// const image = req.files.image;
-	// if (!image) {
-	// 	return res.status(404).json({
-    //         success: false,
-    //         message: "Image not found",
-    //     });
-    // }
-	// const uploadDetails = await uploadImageToCloudinary(
-	// 	image,
-	// 	process.env.FOLDER_NAME
-	// );
-	// console.log(uploadDetails);
-
-	// const updatedImage = await User.findByIdAndUpdate({_id:id},{image:uploadDetails.secure_url},{ new: true });
-
-    // res.status(200).json({
-    //     success: true,
-    //     message: "Image updated successfully",
-    //     data: updatedImage,
-    // });
-		
-	// } 
     catch (error) {
 		return res.status(500).json({
             success: false,
