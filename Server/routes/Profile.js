@@ -19,7 +19,7 @@ router.delete("/deleteAccount",auth,deleteAccount)
 router.put("/updateProfile", auth, updateProfile)
 router.get("/getAllUserDetails", auth, getAllUserDetails)
 // Get Enrolled Courses
-// router.get("/getEnrolledCourses", auth, getEnrolledCourses)
+router.get("/getEnrolledCourses", auth, getEnrolledCourses)
 router.put("/updateDisplayPicture", auth, updateDisplayPicture)
 //get instructor dashboard details
 //router.get("/getInstructorDashboardDetails",auth,isInstructor, instructorDashboard)
