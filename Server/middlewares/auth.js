@@ -26,13 +26,13 @@ exports.auth= async(req,res,next)=>{
             // issue occurred during the verification 
             return res.status(401).json({
                 success: false,
-                message: "Invalid message"
+                message: "Invalid token"
             })
         }
         next()
     } 
     catch (error) {
-        return res.status(401).json({
+        return res.status(401).json({   
             success: false,
             message: "Something went wrong while token validation"
         })

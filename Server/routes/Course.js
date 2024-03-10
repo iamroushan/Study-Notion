@@ -19,7 +19,7 @@ const {
   categoryPageDetails,
 } = require("../controllers/Category")
 
-// Sections Controllers Import
+// Sections Controllers Import  
 const {
   createSection,
   updatedSection,

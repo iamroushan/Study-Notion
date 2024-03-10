@@ -163,7 +163,7 @@ exports.getEnrolledCourses = async(req,res) => {
 
     return res.status(200).json({
       success: true,
-      data: userDetails.courses,
+      data: userDetails?.courses ?? [],
     })
   }
   catch(error){
