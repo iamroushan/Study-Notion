@@ -35,7 +35,7 @@ const RenderCartCourses = () => {
                                 <span className="text-yellow-5"> 4.8 </span>
                                 <ReactStars
                                     count={5}
-                                    value={course?.ratingAndReviews?.length}
+                                    value={course?.ratingAndReview?.length}
                                     size={20}
                                     edit={false}
                                     acitveColor= "#ffd700"
@@ -44,7 +44,7 @@ const RenderCartCourses = () => {
                                 />
 
                                 <span className="text-richblack-400">
-                                    {course?.ratingAndReviews?.length} Ratings
+                                    {course?.ratingAndReview?.length} Ratings
                                 </span>
                             </div>
                         </div>

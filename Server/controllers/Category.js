@@ -85,7 +85,7 @@ exports.categoryPageDetails = async (req,res)=>{
                 match: {status: "Published"},
                 populate:([
                     {path: "instructor"},
-                    {path: "ratingAndReviews"}
+                    {path: "ratingAndReview"}
                 ])
             }
         )

@@ -6,6 +6,7 @@ const Section = require("../models/Section")
 const Subsection = require("../models/SubSection")
 const CourseProgress = require("../models/CourseProgress")
 const mongoose= require("mongoose")
+const { convertSecondsToDuration } = require("../utils/secToDuration")
 
 
 exports.createCourse = async (req, res) => {
@@ -211,7 +212,7 @@ exports.showlAllCourse = async (req,res)=>{
 				price: true,
 				thumbnail: true,
 				instructor: true,
-				ratingAndReviews: true,
+				ratingAndReview: true,
 				studentsEnrolled: true,
             })
             .populate("instructor")
@@ -246,7 +247,7 @@ exports.getCourseDetails = async (req,res)=>{
             }
         )
         .populate("category")
-        //.populate("ratingAndReviews")
+        //.populate("ratingAndReview")
         .populate({
             path: "courseContent",
             populate: {
@@ -293,7 +294,7 @@ exports.getFullCourseDetails = async (req, res) => {
         },
       })
       .populate("category")
-      .populate("ratingAndReviews")
+      .populate("ratingAndReview")
       .populate({
         path: "courseContent",
         populate: {
@@ -389,7 +390,7 @@ exports.deleteCourse = async (req, res) => {
     }
 
     // Unenroll students from the course
-    const studentsEnrolled = course.studentsEnroled
+    const studentsEnrolled = course.studentsEnrolled
     for (const studentId of studentsEnrolled) {
       await User.findByIdAndUpdate(studentId, {
         $pull: { courses: courseId },
@@ -404,7 +405,7 @@ exports.deleteCourse = async (req, res) => {
       if (section) {
         const subSections = section.subSection
         for (const subSectionId of subSections) {
-          await SubSection.findByIdAndDelete(subSectionId)
+          await Subsection.findByIdAndDelete(subSectionId)
         }
       }
 
