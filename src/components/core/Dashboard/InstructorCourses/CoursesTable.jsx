@@ -8,9 +8,9 @@ import {RiDeleteBin6Line} from "react-icons/ri"
 import ConfirmationModal from "../../../common/ConfirmationModal"
 import { deleteCourse, fetchInstructorCourses } from '../../../../services/operations/courseDetails'
 import { COURSE_STATUS } from "../../../../utils/constant"
-import {setCourse} from "../../../../slices/courseSlice"
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css"
 import { useNavigate } from 'react-router-dom'
+import { formatDate } from "../../../../services/formatDate"
 
 const CoursesTable = ({courses, setCourses}) => {
     const dispatch = useDispatch()
@@ -93,7 +93,7 @@ const CoursesTable = ({courses, setCourses}) => {
                                         </p>
 
                                         <p className="text-[12px] text-white">
-                                            Created: 
+                                            Created: {formatDate(course.createdAt)}
                                         </p>
 
                                         {

@@ -5,10 +5,12 @@ import { catalogData } from '../apis';
 
 export const getCatalogaPageData = async(categoryId) => {
   const toastId = toast.loading("Loading...");
+  console.log("the recieved category id " , categoryId);
   let result = [];
   try{
         const response = await apiConnector("POST", catalogData.CATALOGPAGEDATA_API, 
-        {categoryId: categoryId,});
+        {categoryId: categoryId});
+        console.log("page and components " , response);
 
         if(!response?.data?.success)
             throw new Error("Could not Fetch Category page data");

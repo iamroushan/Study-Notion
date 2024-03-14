@@ -11,18 +11,19 @@ import Error from "./Error"
 
 const Catalog = () => {
 
-    const { loading } = useSelector((state) => state.profile)
+  const { loading } = useSelector((state) => state.profile)
   const { catalogName } = useParams()
   const [active, setActive] = useState(1)
-    const [catalogPageData, setCatalogPageData] = useState(null);
-    const [categoryId, setCategoryId] = useState("");
+  const [catalogPageData, setCatalogPageData] = useState(null);
+  const [categoryId, setCategoryId] = useState("");
 
     //Fetch all categories
     useEffect(()=> {
         const getCategories = async() => {
             const res = await apiConnector("GET", categories.CATEGORIES_API);
             const category_id = 
-            res?.data?.data?.filter((ct) => ct.name.split(" ").join("-").toLowerCase() === catalogName)[0]._id;
+            res?.data?.data?.filter((ct) => 
+            ct.name.split(" ").join("-").toLowerCase() === catalogName)[0]._id;
             setCategoryId(category_id);
         }
         getCategories();

@@ -22,6 +22,7 @@ import { ACCOUNT_TYPE } from "./utils/constant";
 import AddCourse from "./components/core/Dashboard/AddCourse";
 import MyCourses from "./components/core/Dashboard/MyCourses";
 import EditCourse from "./components/core/Dashboard/EditCourse";
+import Catalog from "./pages/Catalog";
 //import Instructor from "./components/core/Dashboard/InstructorDashboard/Instructor";
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route  path="/" element={<Home />}/>
+          <Route  path="catalog/:catalogName" element={<Catalog />}/>
           <Route 
                 path="/login"  
                 element={<OpenRoute>
@@ -91,7 +93,7 @@ function App() {
               <Route path="dashboard/Settings" element={<Settings />} />
               
               {
-                user?.accountType == ACCOUNT_TYPE.STUDENT && (
+                user?.accountType === ACCOUNT_TYPE.STUDENT && (
                   <>
                     <Route path="dashboard/cart" element={<Cart />} />
                     <Route path="dashboard/enrolled-courses" element={<EnrolledCourses />} />
@@ -100,7 +102,7 @@ function App() {
               }
 
               {
-                user?.accountType == ACCOUNT_TYPE.INSTRUCTOR && (
+                user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
                   <>
                     {/* <Route path="dashboard/instructor" element={<Instructor />} /> */}
                     <Route path="dashboard/add-course" element={<AddCourse />} />
