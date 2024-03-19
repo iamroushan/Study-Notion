@@ -106,6 +106,6 @@ router.post("/getCategoryPageDetails", categoryPageDetails)
 // ********************************************************************************************************
 router.post("/createRating", auth, isStudent, createRating)
 router.get("/getAverageRating", getAverageRating)
-router.get("/getAllRating", getAllRating)
+router.get("/getReviews", getAllRating)
 
 module.exports = router;

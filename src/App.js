@@ -78,10 +78,10 @@ function App() {
                       } />
 
           <Route
-                path="about"
-                element={<OpenRoute>
+                path="/about"
+                element={
                           < About />
-                        </OpenRoute>
+                        
                       } />
 
           <Route path="/contact" element={<Contact />} />
