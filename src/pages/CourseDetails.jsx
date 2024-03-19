@@ -24,7 +24,7 @@ const CourseDetails = () => {
   const navigate = useNavigate();
   const { courseId } = useParams();
 
-  const [courseData, setCourseData] = useState(null);
+  const [response, setResponse] = useState(null);
   const [confirmationModal, setConfirmationModal] = useState(null);
 
   useEffect(() => {
@@ -32,33 +32,33 @@ const CourseDetails = () => {
       try {
         const result = await fetchCourseDetails(courseId);
         
-        setCourseData(result);
+        setResponse(result);
       } catch (error) {
         console.log("Could not fetch course details");
       }
     };
     getCourseFullDetails();
-    console.log("Printing Course Data: ", courseData);
+    //console.log("Printing Course Data: ", courseData);
   }, [courseId]);
 
   const [avgReviewCount, setAverageReviewCount] = useState(0);
   useEffect(() => {
-    if (courseData?.data?.courseDetails?.ratingAndReview) {
-      const count = GetAvgRating(courseData?.data?.courseDetails.ratingAndReview);
+    if (response?.data?.courseDetails?.ratingAndReview) {
+      const count = GetAvgRating(response?.data?.courseDetails.ratingAndReview);
       setAverageReviewCount(count);
     }
-  }, [courseData]);
+  }, [response]);
 
   const [totalNoOfLectures, setTotalNoOfLectures] = useState(0);
   useEffect(() => {
     let lectures = 0;
-    if (courseData?.data?.courseDetails?.courseContent) {
-      courseData?.data?.courseDetails.courseContent.forEach((sec) => {
+    if (response?.data?.courseDetails?.courseContent) {
+      response?.data?.courseDetails.courseContent.forEach((sec) => {
         lectures += sec.subSection.length || 0;
       });
     }
     setTotalNoOfLectures(lectures);
-  }, [courseData]);
+  }, [response]);
 
   const [isActive, setIsActive] = useState(Array(0))
   const handleActive = (id) => {
@@ -84,7 +84,7 @@ const CourseDetails = () => {
     });
   };
 
-  if (loading || !courseData) {
+  if (loading || !response) {
     return (
       <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
         <div className="spinner"></div>
@@ -92,7 +92,7 @@ const CourseDetails = () => {
     );
   }
 
-  if (!courseData.success) {
+  if (!response.success) {
     return (
       <div>
         <Error />
@@ -112,7 +112,7 @@ const CourseDetails = () => {
     instructor,
     studentsEnrolled,
     createdAt,
-  } = courseData?.data?.courseDetails;
+  } = response.data?.courseDetails;
 
   return (
     <>
@@ -198,7 +198,7 @@ const CourseDetails = () => {
                 {/* Courses card */}
                 <div className="right-[1rem] top-[60px] mx-auto hidden min-h-[600px] w-1/3 max-w-[410px] translate-y-24 md:translate-y-0 lg:absolute  lg:block">
                     <CourseDetailsCard 
-                        course= {courseData?.data?.courseDetails}
+                        course= {response?.data?.courseDetails}
                         setConfirmationModal = {setConfirmationModal}
                         handleBuyCourse = {handleBuyCourse}
                     />
@@ -239,7 +239,7 @@ const CourseDetails = () => {
                                 </span>
 
                                 <span>
-                                    {courseData.data?.totalDuration} total length
+                                    {response.data?.totalDuration} total length
                                 </span>
                             </div>
 
