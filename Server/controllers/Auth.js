@@ -269,14 +269,6 @@ exports.changePassword= async(req,res)=>{
             })
         }
     
-        // Match new password and confirm new password
-        // if(newPassword !== confirmNewPassword){
-        //     return res.status(400).json({
-        //         success: false,
-        //         message: "The password and confirm new pasword does not match"
-        //     })
-        // }
-    
         // update pwd in db
         const encryptedPassword = await bcrypt.hash(newPassword, 10)
         const updatedUserDetails = await User.findByIdAndUpdate(
